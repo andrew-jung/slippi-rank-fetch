@@ -5,6 +5,9 @@ const fastify = Fastify({
 
 import { getSlippiData } from "./fetcher.js";
 
+const port = process.env.PORT || 3000;
+const host = "RENDER" in process.env ? `0.0.0.0` : `localhost`;
+
 fastify.route({
   method: "GET",
   url: "/slp-rank",
@@ -29,7 +32,7 @@ fastify.route({
 });
 
 try {
-  await fastify.listen({ port: 3000 });
+  await fastify.listen({ host: host, port: port });
 } catch (err) {
   fastify.log.error(err);
   process.exit(1);
